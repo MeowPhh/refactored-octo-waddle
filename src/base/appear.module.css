@@ -1,0 +1,70 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.Main {
+  padding: 5px 15px;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid blue;
+  display: flex;
+  width: 800px;
+
+  height: 500px;
+}
+
+.child {
+  justify-content: center;
+}
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+h4 {
+  margin: 0;
+  margin-top: 15px;
+}
+h3 .s1 {
+  width: 20%;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20%;
+}
+.s2 {
+  display: flex;
+  flex-direction: column;
+}
+select {
+  width: 200px;
+  height: 30px;
+}
+.stolbic {
+  width: 100%;
+  flex-direction: column;
+}
+input {
+  width: 193px;
+  height: 30px;
+}
+.s1 {
+  margin-bottom: 5%;
+  margin: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+.f_select_money {
+  display: flex;
+  flex-direction: row;
+}
+.text {
+  margin: 0 15px;
+}
+h3 {
+  margin-right: 5%;
+  margin-bottom: 25%;
+}
