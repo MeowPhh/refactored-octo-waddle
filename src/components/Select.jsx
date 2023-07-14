@@ -1,10 +1,10 @@
 import React from "react";
-import classes from "./appear.module.css";
+import "./appear.module.css";
 
 const Select = (props) => {
   const options = props.ratesInOption.map((text, index) => {
     return (
-      <option key={index} value={text}>
+      <option key={index+text} value={text}>
         {text}
       </option>
     );
@@ -13,14 +13,13 @@ const Select = (props) => {
   return (
     <div>
       <select
-        className={classes.Sel1}
         value={props.currentForSelect}
-        onChange={props.ChangeCurrency}
+        onChange={props.сhangeCurrency}
       >
         {options}
       </select>
 
-      <div className={classes.f_select_money}>
+      <div >
         <input
           type="number"
           value={props.amount}

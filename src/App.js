@@ -1,10 +1,10 @@
 import "./App.css";
-import Appear from "./base/appear";
+import Appear from "./components/Appear";
 
 function App() {
   return (
     <div className="App">
-      <Appear></Appear>
+      <Appear/>
     </div>
   );
 }
