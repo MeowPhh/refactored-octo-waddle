@@ -9,7 +9,7 @@ const Main = () => {
   const [currencyFirstSelect, setCurrencyFirstSelect] = useState();
   const [currencySecondSelect, setCurrencySecondSelect] = useState();
   const [ratesInOption, setRatesInOption] = useState([]);
-  const [baseOfCurrent, setBaseOfCurrent] = useState(0);
+  const [baseOfCurrentCurrency, setBaseOfCurrentCurrency] = useState(0);
   const [resultFirstAmount, setResultFirstAmount] = useState(1);
   const [resultSecondAmount, setResultSecondAmount] = useState(0);
 
@@ -25,7 +25,7 @@ const Main = () => {
 
    async function setData() {
       const changingBaseCurrency = await axios.get(`https://api.apilayer.com/fixer/latest?apikey=${process.env.REACT_APP_API_KEY}&base=${currencyFirstSelect}&symbols=${currencySecondSelect}`)
-      setBaseOfCurrent(changingBaseCurrency.data.rates[currencySecondSelect])
+      setBaseOfCurrentCurrency(changingBaseCurrency.data.rates[currencySecondSelect])
   }
   async function getData() {
     const listOfCurrencies = await axios.get(`https://api.apilayer.com/fixer/latest?apikey=${process.env.REACT_APP_API_KEY}`);
@@ -34,15 +34,15 @@ const Main = () => {
     setRatesInOption([baseInCurrencyFile, ...listOfRates]);
     setCurrencyFirstSelect(baseInCurrencyFile);
     setCurrencySecondSelect(listOfRates[0]);
-    setBaseOfCurrent(listOfCurrencies.data.rates[listOfRates[0]]);
+    setBaseOfCurrentCurrency(listOfCurrencies.data.rates[listOfRates[0]]);
   }
 
   function handleOnChangeCurrentInput(amount) {
-    setResultSecondAmount((amount * baseOfCurrent).toFixed(2));
+    setResultSecondAmount((amount * baseOfCurrentCurrency).toFixed(2));
     setResultFirstAmount(amount);
   }
   function handleOnChangeCurrentInput2(amount) {
-    setResultFirstAmount((amount / baseOfCurrent).toFixed(2));
+    setResultFirstAmount((amount / baseOfCurrentCurrency).toFixed(2));
     setResultSecondAmount(amount);
   }
 
@@ -62,7 +62,7 @@ const Main = () => {
               ratesInOption={ratesInOption}
               amount={resultFirstAmount}
               onChangeCurrentInput={handleOnChangeCurrentInput}
-            ></Select>
+            />
           </div>
           <div className={classes.column}>
             <p>в</p>
@@ -76,7 +76,7 @@ const Main = () => {
               сhangeCurrency={(e) => setCurrencySecondSelect(e.target.value)}
               amount={resultSecondAmount}
               onChangeCurrentInput={handleOnChangeCurrentInput2}
-            ></Select>
+            />
           </div>
         </div>
       </div>

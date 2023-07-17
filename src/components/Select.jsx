@@ -18,7 +18,6 @@ const Select = (props) => {
       >
         {options}
       </select>
-
       <div >
         <input
           type="number"

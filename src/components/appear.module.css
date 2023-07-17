@@ -28,11 +28,6 @@ p {
   margin-top: 10px;
 }
 
-.column p{
-  width: 20%;
-  margin-right: 50px;
-}
-
 h1 {
   display: flex;
   justify-content: center;
@@ -41,11 +36,6 @@ h1 {
 
 .text {
   margin-right: 10px;
-}
-
-.column p {
-  display: flex;
-  flex-direction: column;
 }
 
 select {
@@ -59,11 +49,11 @@ input {
 }
 
 .column p {
-  margin-bottom: 5%;
   margin: 5px 10px;
   display: flex;
   flex-direction: row;
   justify-content: baseline;
+  width: 20%;
 }
 
 h3 {
