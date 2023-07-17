@@ -22,7 +22,7 @@ const Select = (props) => {
         <input
           type="number"
           value={props.amount}
-          onChange={(e) => props.onChangeCurrentInput(e.target.value)}
+          onChange={(e) => props.onChangeCurrencyInput(e.target.value)}
         />
       </div>
     </div>

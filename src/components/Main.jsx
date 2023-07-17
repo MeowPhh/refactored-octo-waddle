@@ -3,9 +3,11 @@ import classes from "./appear.module.css";
 import Select from "./Select";
 import axios from "axios";
 
+const URL = "https://api.apilayer.com/fixer/latest?";
+
 const Main = () => {
-  const [currencyFirstSelect, setCurrencyFirstSelect] = useState();
-  const [currencySecondSelect, setCurrencySecondSelect] = useState();
+  const [fromCurrencySelect, setFromCurrencySelect] = useState();
+  const [toCurrencySelect, setToCurrencySecondSelect] = useState();
   const [ratesInOption, setRatesInOption] = useState([]);
   const [baseOfCurrentCurrency, setBaseOfCurrentCurrency] = useState(0);
   const [resultFirstAmount, setResultFirstAmount] = useState(1);
@@ -15,31 +17,47 @@ const Main = () => {
     getData();
   }, []);
 
-  useEffect(() =>  {
-    if (currencyFirstSelect !== null && currencySecondSelect !== null) {
-    setData();
+  useEffect(() => {
+    if (fromCurrencySelect !== null && toCurrencySelect !== null) {
+      setData();
     }
-   },  [currencyFirstSelect, currencySecondSelect])
+  }, [fromCurrencySelect, toCurrencySelect]);
 
-   async function setData() {
-      const changingBaseCurrency = await axios.get(`https://api.apilayer.com/fixer/latest?apikey=${process.env.REACT_APP_API_KEY}&base=${currencyFirstSelect}&symbols=${currencySecondSelect}`)
-      setBaseOfCurrentCurrency(changingBaseCurrency.data.rates[currencySecondSelect])
+  async function setData() {
+    try {
+      const changingBaseCurrency = await axios.get(
+        `${URL}apikey=${process.env.REACT_APP_API_KEY}&base=${fromCurrencySelect}&symbols=${toCurrencySelect}`
+      );
+      setBaseOfCurrentCurrency(
+        changingBaseCurrency.data.rates[toCurrencySelect]
+      );
+    } catch (error) {
+      console.log(error.name);
+    }
   }
+
   async function getData() {
-    const listOfCurrencies = await axios.get(`https://api.apilayer.com/fixer/latest?apikey=${process.env.REACT_APP_API_KEY}`);
-    const baseInCurrencyFile= listOfCurrencies.data.base 
-    const listOfRates = Object.keys(listOfCurrencies.data.rates)
-    setRatesInOption([baseInCurrencyFile, ...listOfRates]);
-    setCurrencyFirstSelect(baseInCurrencyFile);
-    setCurrencySecondSelect(listOfRates[0]);
-    setBaseOfCurrentCurrency(listOfCurrencies.data.rates[listOfRates[0]]);
+    try {
+      const listOfCurrencies = await axios.get(
+        `${URL}apikey=${process.env.REACT_APP_API_KEY}`
+      );
+      const baseInCurrencyFile = listOfCurrencies.data.base;
+      const listOfRates = Object.keys(listOfCurrencies.data.rates);
+      setRatesInOption([baseInCurrencyFile, ...listOfRates]);
+      setFromCurrencySelect(baseInCurrencyFile);
+      setToCurrencySecondSelect(listOfRates[0]);
+      setBaseOfCurrentCurrency(listOfCurrencies.data.rates[listOfRates[0]]);
+    } catch (error) {
+      console.log(error.name);
+    }
   }
 
-  function handleOnChangeCurrentInput(amount) {
+  function handleOnChangeCurrencyFrom(amount) {
     setResultSecondAmount((amount * baseOfCurrentCurrency).toFixed(2));
     setResultFirstAmount(amount);
   }
-  function handleOnChangeCurrentInput2(amount) {
+
+  function handleOnChangeCurrencyTo(amount) {
     setResultFirstAmount((amount / baseOfCurrentCurrency).toFixed(2));
     setResultSecondAmount(amount);
   }
@@ -48,32 +66,30 @@ const Main = () => {
     <div className={classes.main}>
       <div className={classes.child}>
         <h1>
-         <strong>Конвертер валют</strong> 
+          <strong>Конвертер валют</strong>
         </h1>
         <div className={classes.wrapper}>
           <p className={classes.text}>Вы переводите из</p>
-
           <div className={classes.column}>
             <Select
-              currentForSelect={currencyFirstSelect}
-              сhangeCurrency={(e) => setCurrencyFirstSelect(e.target.value)}
+              currentForSelect={fromCurrencySelect}
+              сhangeCurrency={(e) => setFromCurrencySelect(e.target.value)}
               ratesInOption={ratesInOption}
               amount={resultFirstAmount}
-              onChangeCurrentInput={handleOnChangeCurrentInput}
+              onChangeCurrencyInput={handleOnChangeCurrencyFrom}
             />
           </div>
           <div className={classes.column}>
             <p>в</p>
             <p>=</p>
           </div>
-
           <div className={classes.column}>
             <Select
-              currentForSelect={currencySecondSelect}
+              currentForSelect={toCurrencySelect}
               ratesInOption={ratesInOption}
-              сhangeCurrency={(e) => setCurrencySecondSelect(e.target.value)}
+              сhangeCurrency={(e) => setToCurrencySecondSelect(e.target.value)}
               amount={resultSecondAmount}
-              onChangeCurrentInput={handleOnChangeCurrentInput2}
+              onChangeCurrencyInput={handleOnChangeCurrencyTo}
             />
           </div>
         </div>
