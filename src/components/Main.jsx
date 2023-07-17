@@ -3,8 +3,6 @@ import classes from "./appear.module.css";
 import Select from "./Select";
 import axios from "axios";
 
-
-
 const Main = () => {
   const [currencyFirstSelect, setCurrencyFirstSelect] = useState();
   const [currencySecondSelect, setCurrencySecondSelect] = useState();
