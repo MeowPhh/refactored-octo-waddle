@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-const Appear = () => {
+const MainContext = () => {
   const [currencyFirstSelect, setCurrencyFirstSelect] = useState();
   const [currencySecondSelect, setCurrencySecondSelect] = useState();
   const [ratesInOption, setRatesInOption] = useState([]);
@@ -28,11 +28,13 @@ const Appear = () => {
       setBaseOfCurrent(changingBaseCurrency.data.rates[currencySecondSelect])
   }
   async function getData() {
-    const ListOfCurrencies = await axios.get(`https://api.apilayer.com/fixer/latest?apikey=${process.env.REACT_APP_API_KEY}`);
-    setRatesInOption([ListOfCurrencies.data.base, ...Object.keys(ListOfCurrencies.data.rates)]);
-    setCurrencyFirstSelect(ListOfCurrencies.data.base);
-    setCurrencySecondSelect(Object.keys(ListOfCurrencies.data.rates)[0]);
-    setBaseOfCurrent(ListOfCurrencies.data.rates[Object.keys(ListOfCurrencies.data.rates)[0]]);
+    const listOfCurrencies = await axios.get(`https://api.apilayer.com/fixer/latest?apikey=${process.env.REACT_APP_API_KEY}`);
+    const baseInCurrencyFile= listOfCurrencies.data.base 
+    const listOfRates = Object.keys(listOfCurrencies.data.rates)
+    setRatesInOption([baseInCurrencyFile, ...listOfRates]);
+    setCurrencyFirstSelect(baseInCurrencyFile);
+    setCurrencySecondSelect(listOfRates[0]);
+    setBaseOfCurrent(listOfCurrencies.data.rates[listOfRates[0]]);
   }
 
   function handleOnChangeCurrentInput(amount) {
@@ -82,4 +84,4 @@ const Appear = () => {
   );
 };
 
-export default Appear;
+export default MainContext;
