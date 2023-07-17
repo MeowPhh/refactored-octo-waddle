@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 
-const MainContext = () => {
+const Main = () => {
   const [currencyFirstSelect, setCurrencyFirstSelect] = useState();
   const [currencySecondSelect, setCurrencySecondSelect] = useState();
   const [ratesInOption, setRatesInOption] = useState([]);
@@ -84,4 +84,4 @@ const MainContext = () => {
   );
 };
 
-export default MainContext;
+export default Main;
