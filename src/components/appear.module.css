@@ -1,0 +1,62 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  padding: 5px 15px;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid blue;
+  display: flex;
+  width: 800px;
+  height: 500px;
+}
+
+.child {
+  justify-content: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+p {
+  margin: 0;
+  margin-top: 10px;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20%;
+}
+
+.text {
+  margin-right: 10px;
+}
+
+select {
+  width: 200px;
+  height: 30px;
+}
+
+input {
+  width: 193px;
+  height: 30px;
+}
+
+.column p {
+  margin: 5px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+  width: 20%;
+}
+
+h3 {
+  margin-right: 5%;
+  margin-bottom: 25%;
+}
